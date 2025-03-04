@@ -1,35 +1,32 @@
 Here are some points about references
 
-1. References are usually implemented internally by the compiler using pointer
-Pass non-pointer, non-fundamental data type variables (such as structs) by (const) reference, unless you know that passing it by value is faster.
-Almost never return an r-value reference, for the same reason you should almost never return an l-value reference.
-
-2. References rules and issues
-Rules:
-    • We cannot get the address of a reference itself because a reference is not an object (a region of storage) according to the C++ standard.
-    • Declaring a reference to a reference, an array of references, and a pointer to a reference is forbidden in C++
-
-Issues:-std::ref, std::reference_wrapper will solve this https://www.nextptr.com/tutorial/ta1441164581/stdref-and-stdreference_wrapper-common-use-cases
-    • Template function will NOT AUTOMATICALLY deduce type as T&. Either you should specify in caller or in parameterType of template function
-    • Reference cannot rebind to another object. Therefore, assigning a reference to another does not assign the reference itself; it assigns the object:
-    int x=10, y=20;
-int &xref = x, &yref = y;
-    xref = yref;
-//xref still refers x, which is 20 now.
+1. References are usually implemented internally by the compiler using pointer.
+2. Pass non-pointer, non-fundamental data type variables (such as structs) by (const) reference, unless you know that passing it by value is faster.
+3. Almost never return an r-value reference, for the same reason you should almost never return an l-value reference.
+4. References rules and issues
+   Rules:
+   + We cannot get the address of a reference itself because a reference is not an object (a region of storage) according to the C++ standard.
+   + Declaring a reference to a reference, an array of references, and a pointer to a reference is forbidden in C++
+   
+   Issues:
+   + Template function will NOT AUTOMATICALLY deduce type as T&. Either you should specify in caller or in parameterType of template function
+   + Reference cannot rebind to another object. Therefore, assigning a reference to another does not assign the reference itself; it assigns the object:
+     ```javascript
+      int x=10, y=20;
+      int &xref = x, &yref = y;
+      xref = yref;
+      //xref still refers x, which is 20 now.
+     ```
     
-    • As references cannot rebind, having a reference class member is a pain in the neck because a reference member makes ENTIRE class non-assignable
-        ○ the default copy-assignment operator is deleted.
-        ○ Move-semantics does not make sense with a reference member altogether.
+    + As references cannot rebind, having a reference class member is a pain in the neck because a reference member makes ENTIRE class non-assignable
+        + the default copy-assignment operator is deleted.
+        + Move-semantics does not make sense with a reference member altogether.
     
-    
-    • Reference types do not meet the Erasable requirement of STL container elements. Therefore, we cannot have a container (e.g., vector or list) of reference elements:
-    
-    std::vector<int&> v; //Error
-    https://www.nextptr.com/tutorial/ta1441164581/stdref-and-stdreference_wrapper-common-use-cases
+    + Reference types do not meet the Erasable requirement of STL container elements. Therefore, we cannot have a container (e.g., vector or list) of reference elements:
+      Ref: https://www.nextptr.com/tutorial/ta1441164581/stdref-and-stdreference_wrapper-common-use-cases
 
-3. Lvalues and Rvalues
-
-
+   std::ref, std::reference_wrapper will solve this Ref: https://www.nextptr.com/tutorial/ta1441164581/stdref-and-stdreference_wrapper-common-use-cases
+6. Lvalues and Rvalues
 
 Each expression has some non-reference type, and each expression belongs to exactly one of the three primary value categories: prvalue, xvalue, and lvalue.
 
