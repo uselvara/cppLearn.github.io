@@ -1,7 +1,11 @@
-<dl>
-  <dt>Definition list</dt>
-  <dd>Is something people use sometimes.</dd>
+---
+layout: single
+title: "Curriculum Vitae"
+sitemap: false
+permalink: /Curriculum/
+author_profile: TRUE
+header:
+  image: assets/images/banner.jpg
+---
 
-  <dt>Markdown in HTML</dt>
-  <dd>Does *not* work **very** well. Use HTML <em>tags</em>.</dd>
-</dl>
+<embed src="https://github.com/uselvara/cppLearn.github.io/blob/main/Basics.pdf" type="application/pdf" />
